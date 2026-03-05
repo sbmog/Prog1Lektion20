@@ -1,11 +1,12 @@
-package opgave01.test;
+package opgave02.test;
+
+import opgave02.model.Swimmer;
+import opgave02.model.TrainingPlan;
 
 import java.util.ArrayList;
-import opgave01.model.Swimmer;
-import opgave01.model.TrainingPlan;
 
 public class SwimmerApp {
-    
+
     public static void main(String[] args) {
 
         ArrayList<Double> lapTimes = new ArrayList<>();
@@ -37,7 +38,7 @@ public class SwimmerApp {
         lapTimes.add(1.06);
         lapTimes.add(1.03);
         Swimmer swimmer3 = new Swimmer("Mikkel", 1993, lapTimes, "AIA-Tranbjerg");
-        
+
         ArrayList<Swimmer> swimmers = new ArrayList<>();
         swimmers.add(swimmer1);
         swimmers.add(swimmer2);
@@ -48,24 +49,25 @@ public class SwimmerApp {
         }
         System.out.println();
 
-        TrainingPlan trainingPlanA = new TrainingPlan('A',16,10);
-        TrainingPlan trainingPlanB = new TrainingPlan('B',10,6);
+        TrainingPlan trainingPlanA = new TrainingPlan('A', 16, 10);
+        TrainingPlan trainingPlanB = new TrainingPlan('B', 10, 6);
 
-        swimmer1.setTrainingPlan(trainingPlanA);
-        swimmer2.setTrainingPlan(trainingPlanA);
-        swimmer3.setTrainingPlan(trainingPlanB);
+        ArrayList<TrainingPlan> trainingPlans = new ArrayList<>();
+        trainingPlans.add(trainingPlanA);
+        trainingPlans.add(trainingPlanB);
 
-        for (Swimmer swimmer : swimmers) {
-            System.out.println(swimmer.getName()+" træner "+swimmer.allTrainingHours()+" timer om ugen");
+        trainingPlanA.addSwimmer(swimmer1);
+        trainingPlanA.addSwimmer(swimmer2);
+        trainingPlanB.addSwimmer(swimmer3);
+
+        trainingPlanA.printListOfSwimmers();
+        trainingPlanB.printListOfSwimmers();
+
+        int samletTidBrugtPåTræning = 0;
+        for (TrainingPlan trainingPlan : trainingPlans) {
+            samletTidBrugtPåTræning += trainingPlan.allTrainingsHours();
         }
-        int samledeAntalTimerForAlleSvømmere =0;
-        for (Swimmer swimmer : swimmers) {
-            samledeAntalTimerForAlleSvømmere +=swimmer.allTrainingHours();
-        }
-        System.out.println("Tilsammen træner alle svømmerne: "+samledeAntalTimerForAlleSvømmere+" timer hver uge");
-        System.out.println();
-
-
+        System.out.println("Svømmernes samlede tid brugt på træning: " + samletTidBrugtPåTræning);
     }
-    
+
 }
